@@ -2,17 +2,18 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { getAllProducts } from './utills/products';
 import Card from './components/card';
+
 function App() {
   const [products, setProducts] = useState([]);
 useEffect(() => {
   fetchproducts();
-}, [])
+}, []);
 
 const fetchproducts = async () => {
-  const products = await getAllProducts()
-  setProducts([...products])
+  const products = await getAllProducts();
+  setProducts([...products]);
   console.log(products);
-}
+};
 
 return (
     <>
@@ -22,14 +23,13 @@ return (
   <div className="container px-5 py-24 mx-auto">
     <div className="flex flex-wrap -m-4">
     {
-    products.map((data ,ind)=> {
-      return <Card key={data.id} /> 
+    products.map((data)=> {
+      return <Card key={data.id} item={data} /> 
     })}
     </div>
   </div>
 </section>
 </div>
-
     </>
   )
 }
