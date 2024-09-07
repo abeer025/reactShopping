@@ -1,12 +1,79 @@
+import { useEffect, useState } from "react";
+import Card from "../components/Card";
+import Category from "../components/category"; // Ensure this path is correct
+import axios from "axios";
 
+function Products() {
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [chosenCategory, setChosenCategory] = useState("All");
 
-function Products ({ id, name }) {
-    return (
-      <div className="border p-4 rounded-lg shadow-sm">
-        <h2 className="text-xl font-semibold">{name}</h2>
-        <Link to={`/products/${id}`} className="text-blue-500 hover:underline">View Details</Link>
-      </div>
-    );
-  }
-  
-  export default Products;
+  useEffect(() => {
+    console.log("Use effect Call Hogya");
+    const url =
+      chosenCategory === "All"
+        ? "https://dummyjson.com/products"
+        : `https://dummyjson.com/products/category/${chosenCategory}`;
+    axios
+      .get(url)
+      .then((res) => {
+        setProducts(res.data.products);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, [chosenCategory]);
+
+  useEffect(() => {
+    axios
+      .get("https://dummyjson.com/products/categories")
+      .then((res) => {
+        setCategories(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <div className="container mx-auto">
+      {loading ? (
+        <h1 className="text-center text-3xl">Loading....</h1>
+      ) : (
+        <div>
+          <div className="flex gap-3 flex-wrap">
+            <Category
+              onClick={() => setChosenCategory("All")}
+              isChosen={chosenCategory === "All"}
+              category={{
+                slug: "All",
+                name: "All",
+              }}
+            />
+            {categories.map((category) => (
+              <Category
+                onClick={() => setChosenCategory(category.slug)}
+                isChosen={category.slug === chosenCategory}
+                category={category}
+                key={category.slug}
+              />
+            ))}
+          </div>
+
+          <div className="flex flex-wrap -m-4 my-4">
+            {products.map((item) => (
+              <Card item={item} key={item.id} />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Products;
