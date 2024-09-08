@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProductDetail from "./pages/ProductDetail";
 import Header from "./components/Header";
-import Card from "./components/Card"
+import NotFound from "./pages/NotFound";
 function App() {
   return (
     <BrowserRouter>
@@ -17,10 +17,10 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/Product/:id" element={<ProductDetail />} />
-          <Route path="/Card" element={<Card />} />
           <Route path="/Products" element={<Products />} />
+      <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
   );
 }
 

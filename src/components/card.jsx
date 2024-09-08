@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 
 function Card({ item }) {
-  const { thumbnail, category, title, price, id } = item; // Object destructuring
+  const { thumbnail, category, title, price, id } = item;
+
 
   return (
     <Link
