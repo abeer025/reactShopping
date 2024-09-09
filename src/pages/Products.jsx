@@ -1,7 +1,7 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
-import Category from "../components/category"; // Ensure this path is correct
-import axios from "axios";
+import Category from "../components/category";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -10,7 +10,7 @@ function Products() {
   const [chosenCategory, setChosenCategory] = useState("All");
 
   useEffect(() => {
-    console.log("Use effect Call Hogya");
+    // console.log("Use effect Call Hogya");
     const url =
       chosenCategory === "All"
         ? "https://dummyjson.com/products"
