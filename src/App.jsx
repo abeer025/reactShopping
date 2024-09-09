@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProductDetail from "./pages/ProductDetail";
 import Header from "./components/Header";
-import NotFound from "./pages/NotFound";
+// import NotFound from "./pages/NotFound";
 function App() {
   return (
     <BrowserRouter>
@@ -16,9 +16,9 @@ function App() {
           <Route path="/About" element={<About />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
-          <Route path="/Product/:id" element={<ProductDetail />} />
-          <Route path="/Products" element={<Products />} />
-      <Route path="*" element={<NotFound />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/products" element={<Products />} />
+      {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
       </BrowserRouter>
   );
