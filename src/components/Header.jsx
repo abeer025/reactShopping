@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Button from "./Button";
 
 function Header() {
   return (
@@ -34,7 +35,7 @@ function Header() {
           </Link>
         </nav>
         <Link to="/Products">
-        <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+        <Button >
           Shop Now
           <svg
             fill="none"
@@ -47,7 +48,7 @@ function Header() {
           >
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
-        </button>
+        </Button>
         </Link>
       </div>
     </header>

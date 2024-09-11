@@ -45,32 +45,34 @@ function Products() {
       {loading ? (
         <h1 className="text-center text-3xl">Loading....</h1>
       ) : (
+        <>
         <div>
-          <div className="flex gap-3 flex-wrap">
-            <Category
-              onClick={() => setChosenCategory("All")}
-              isChosen={chosenCategory === "All"}
-              category={{
-                slug: "All",
-                name: "All",
-              }}
-            />
-            {categories.map((category) => (
-              <Category
-                onClick={() => setChosenCategory(category.slug)}
-                isChosen={category.slug === chosenCategory}
-                category={category}
-                key={category.slug}
-              />
-            ))}
           </div>
+          <input type="search" />
+          <div>
+              <div className="flex gap-3 flex-wrap">
+                <Category
+                  onClick={() => setChosenCategory("All")}
+                  isChosen={chosenCategory === "All"}
+                  category={{
+                    slug: "All",
+                    name: "All",
+                  }} />
+                {categories.map((category) => (
+                  <Category
+                    onClick={() => setChosenCategory(category.slug)}
+                    isChosen={category.slug === chosenCategory}
+                    category={category}
+                    key={category.slug} />
+                ))}
+              </div>
 
-          <div className="flex flex-wrap -m-4 my-4">
-            {products.map((item) => (
-              <Card item={item} key={item.id} />
-            ))}
-          </div>
-        </div>
+              <div className="flex flex-wrap -m-4 my-4">
+                {products.map((item) => (
+                  <Card item={item} key={item.id} />
+                ))}
+              </div>
+            </div></>
       )}
     </div>
   );
