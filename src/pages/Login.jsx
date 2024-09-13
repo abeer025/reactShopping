@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { ref, set } from "firebase/database";  // Include Realtime Database methods
+import { ref, set } from "firebase/database"; // Include Realtime Database methods
 import { useState } from "react";
 import { auth, db } from "../utils/firebase";
 import { useNavigate } from "react-router";
@@ -22,7 +22,7 @@ function Login() {
           uid: user.uid,
         })
           .then(() => {
-            navigate("/");  // Navigate after successful login and database save
+            navigate("/"); // Navigate after successful login and database save
           })
           .catch((error) => {
             alert("Error saving user data: " + error.message);
@@ -52,7 +52,11 @@ function Login() {
           className="p-2 border my-3 w-1/2"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type="submit" value="Login" />
+        <input
+          type="submit"
+          value="Login"
+          className="w-1/2 bg-indigo-500 text-white py-3 px-4 rounded hover:bg-indigo-600 cursor-pointer"
+        />
       </form>
     </div>
   );

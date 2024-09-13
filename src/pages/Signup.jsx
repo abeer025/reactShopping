@@ -65,7 +65,6 @@ function Signup() {
           className="p-2 border my-3 w-1/2"
           onChange={(e) => setPassword(e.target.value)}
         />
-
         <input type="submit" value={"Signup"} />
       </form>
 

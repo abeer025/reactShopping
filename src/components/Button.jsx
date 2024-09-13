@@ -1,23 +1,23 @@
-// src/components/Button.jsx
-import React from 'react';
-
-function Button({ label, onClick, variant = 'primary', type = 'button', className = '' }) {
-  const baseStyles = 'inline-flex items-center border-0 py-2 px-6 focus:outline-none rounded text-base';
-  const variants = {
-    primary: 'bg-indigo-500 text-white hover:bg-indigo-600',
-    secondary: 'bg-gray-500 text-white hover:bg-gray-600',
-    danger: 'bg-red-500 text-white hover:bg-red-600',
-  };
-
+import React from 'react'
+import { Button } from '@mui/material';
+export default function Button() {
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      className={`${baseStyles} ${variants[variant]} ${className}`}
-    >
-      {label}
-    </button>
-  );
+<Button
+  variant="contained"
+  sx={{
+    width: '50%', 
+    backgroundColor: 'indigo', 
+    color: 'white', 
+    paddingY: 3, 
+    paddingX: 4, 
+    borderRadius: '8px',
+    '&:hover': {
+      backgroundColor: 'indigo.600',
+    },
+    cursor: 'pointer',
+  }}
+>
+  Shop Now
+</Button> 
+ )
 }
-
-export default Button;
