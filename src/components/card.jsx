@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function Card({ item }) {
-  const { thumbnail, category, title, price, id } = item;
+  const { thumbnail, Category, title, price, id } = item;
 
 
   return (
@@ -19,7 +19,7 @@ function Card({ item }) {
         </div>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-            {category}
+            {Category}
           </h3>
           <h2 className="text-gray-900 title-font text-lg font-medium">
             {title}

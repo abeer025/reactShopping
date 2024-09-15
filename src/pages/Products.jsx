@@ -1,20 +1,27 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Card from "../components/card";
-import Category from "../components/category";
+import Card from "../components/Card";
+import Category from "../components/Category";
 
 function Products() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [chosenCategory, setChosenCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    // console.log("Use effect Call Hogya");
-    const url =
-      chosenCategory === "All"
-        ? "https://dummyjson.com/products"
-        : `https://dummyjson.com/products/category/${chosenCategory}`;
+    let url = "";
+    if (searchQuery) {
+      url = `https://dummyjson.com/products/search?q=phone`;
+    } else {
+      url =
+        chosenCategory === "All"
+          ? "https://dummyjson.com/products"
+          : `https://dummyjson.com/products/category/${chosenCategory}`;
+    }
+
+    setLoading(true);
     axios
       .get(url)
       .then((res) => {
@@ -22,10 +29,10 @@ function Products() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         setLoading(false);
       });
-  }, [chosenCategory]);
+  }, [chosenCategory, searchQuery]);
 
   useEffect(() => {
     axios
@@ -35,10 +42,14 @@ function Products() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         setLoading(false);
       });
   }, []);
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   return (
     <div className="container mx-auto">
@@ -46,33 +57,41 @@ function Products() {
         <h1 className="text-center text-3xl">Loading....</h1>
       ) : (
         <>
-        <div>
+          <div className="flex justify-center w-1/2 mb-4">
+            <input
+              type="search"
+              placeholder="Search Products..."
+              className="p-2 border border-gray-300 rounded"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
           </div>
-          <input type="search" />
-          <div>
-              <div className="flex gap-3 flex-wrap">
-                <Category
-                  onClick={() => setChosenCategory("All")}
-                  isChosen={chosenCategory === "All"}
-                  category={{
-                    slug: "All",
-                    name: "All",
-                  }} />
-                {categories.map((category) => (
-                  <Category
-                    onClick={() => setChosenCategory(category.slug)}
-                    isChosen={category.slug === chosenCategory}
-                    category={category}
-                    key={category.slug} />
-                ))}
-              </div>
 
-              <div className="flex flex-wrap -m-4 my-4">
-                {products.map((item) => (
-                  <Card item={item} key={item.id} />
-                ))}
-              </div>
-            </div></>
+          <div className="flex gap-3 flex-wrap">
+            <Category
+              onClick={() => setChosenCategory("All")}
+              isChosen={chosenCategory === "All"}
+              category={{ slug: "All", name: "All" }}
+              key="all" // Unique key
+            />
+            {categories.map((categoryItem) => (
+              <Category
+                onClick={() => setChosenCategory(categoryItem.slug)}
+                isChosen={categoryItem.slug === chosenCategory}
+                category={categoryItem}
+                key={categoryItem.slug} // Ensure unique key
+              />
+            ))}
+          </div>
+
+          <div className="flex flex-wrap -m-4 my-4">
+            {products.length > 0 ? (
+              products.map((item) => <Card item={item} key={item.id} />)
+            ) : (
+              <p>No products found</p>
+            )}
+          </div>
+        </>
       )}
     </div>
   );
