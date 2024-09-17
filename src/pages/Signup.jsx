@@ -65,7 +65,11 @@ function Signup() {
           className="p-2 border my-3 w-1/2"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type="submit" value={"Signup"} />
+        <input
+          type="submit"
+          value="Login"
+          className="w-1/2 bg-indigo-500 text-white py-3 px-4 rounded hover:bg-indigo-600 cursor-pointer"
+        />
       </form>
 
       <button className="" onClick={handleSigninWithGoogle} />
