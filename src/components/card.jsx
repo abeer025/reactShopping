@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Box,Button,Typography } from "@mui/material";
+import { Products} from "../pages/Products";
 
 function Card({ item }) {
   const { thumbnail, Category, title, price, id } = item;
