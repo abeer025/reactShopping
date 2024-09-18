@@ -6,23 +6,24 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProductDetail from "./pages/ProductDetail";
 import Header from "./components/Header";
-import UseState from "./useState"
-// import NotFound from "./pages/NotFound";
+import UseState from "./useState";
+import NotFound from "./pages/NotFound";  // Uncomment this line to include NotFound
+
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-      <Route path="/" element={<Home />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/useState" element={<UseState />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Signup" element={<Signup />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/products" element={<Products />} />
-      {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/useState" element={<UseState />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Signup" element={<Signup />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="*" element={<NotFound />} /> {/* Handle unmatched routes */}
       </Routes>
-      </BrowserRouter>
+    </BrowserRouter>
   );
 }
 

@@ -67,12 +67,11 @@ function Signup() {
         />
         <input
           type="submit"
-          value="Login"
+          value="Signup"
           className="w-1/2 bg-indigo-500 text-white py-3 px-4 rounded hover:bg-indigo-600 cursor-pointer"
         />
       </form>
-
-      <button className="" onClick={handleSigninWithGoogle} />
+      {/* <button className="" onClick={handleSigninWithGoogle} /> */}
     </div>
   );
 }

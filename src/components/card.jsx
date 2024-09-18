@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Box,Button,Typography } from "@mui/material";
 
 function Card({ item }) {
   const { thumbnail, Category, title, price, id } = item;
@@ -9,7 +10,7 @@ function Card({ item }) {
       to={`/products/${id}`}
       className="lg:w-1/4 md:w-1/2 p-4 w-full shadow"
     >
-      <div>
+      <Box>
         <div className="block relative h-48 rounded overflow-hidden">
           <img
             alt="ecommerce"
@@ -26,7 +27,7 @@ function Card({ item }) {
           </h2>
           <p className="mt-1">${price}</p>
         </div>
-      </div>
+      </Box>
     </Link>
   );
 }

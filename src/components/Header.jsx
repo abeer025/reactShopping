@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
+import Icon from '@mdi/react';
+import { mdiCart } from '@mdi/js';
 
 function Header() {
   return (
-    <header className="text-gray-600 body-font">
+    <header className="text-white text-ellipsis body-font bg-slate-400">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
           <svg
@@ -20,23 +22,30 @@ function Header() {
           </svg>
           <span className="ml-3 text-xl">reactShopping</span>
         </a>
-        <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-          <Link to="/" className="mr-5 hover:text-gray-900">
+        <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center ">
+          <Link to="/" className="mr-5 hover:text-black">
             Home
           </Link>
-          <Link to="/about" className="mr-5 hover:text-gray-900">
+          <Link to="/about" className="mr-5 hover:text-black">
             About
           </Link>
-          <Link to="/login" className="mr-5 hover:text-gray-900">
+          <Link to="/login" className="mr-5 hover:text-black">
             Login
           </Link>
-          <Link to="/signup" className="mr-5 hover:text-gray-900">
+          <Link to="/signup" className="mr-5 hover:text-black">
             Signup
           </Link>
         </nav>
-        <Link to="/Products">
-        <Button> Shop Now </Button>
-        </Link>
+        <Button
+          component={Link}
+          to="/products"
+          variant="contained"
+          color="primary"
+          className="my-8"
+        >
+          Shop Now
+        </Button>
+        <Icon path={mdiCart} size={1} color="white" />
       </div>
     </header>
   );
