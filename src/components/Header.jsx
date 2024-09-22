@@ -45,7 +45,10 @@ function Header() {
         >
           Shop Now
         </Button>
-        <Icon path={mdiCart} size={1} color="white" />
+        <Link to={'/CartPge.jsx'}>
+        <Icon path={mdiCart} size={1} color="white" 
+        className="cursor-pointer mx-5 " />
+        </Link>
       </div>
     </header>
   );

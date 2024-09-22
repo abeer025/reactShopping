@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Card from "../components/Card";
 import Category from "../components/Category";
+import Card from "../components/Card.jsx";
 import { Select, MenuItem, TextField, Button, CircularProgress } from "@mui/material";
 
 function Products() {
@@ -10,24 +10,24 @@ function Products() {
   const [loading, setLoading] = useState(true);
   const [chosenCategory, setChosenCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("title"); // Default sorting by title
-  const [order, setOrder] = useState("asc"); // Default order is ascending
+  const [sortBy, setSortBy] = useState("title"); 
+  const [order, setOrder] = useState("asc"); 
 
-  // Fetch products based on search query, category, sortBy, and order
+  // Fetch products based on search query, Category, sortBy, and order
   useEffect(() => {
     let url = "";
 
-    // Check if searchQuery is set, otherwise fetch by category and sorting
+    // Check if searchQuery is set, otherwise fetch by Category and sorting
     if (searchQuery) {
       url = `https://dummyjson.com/products/search?q=${searchQuery}&sortBy=${sortBy}&order=${order}`;
     } else {
       url =
         chosenCategory === "All"
           ? `https://dummyjson.com/products?sortBy=${sortBy}&order=${order}`
-          : `https://dummyjson.com/products/category/${chosenCategory}?sortBy=${sortBy}&order=${order}`;
+          : `https://dummyjson.com/products/Category/${chosenCategory}?sortBy=${sortBy}&order=${order}`;
     }
 
-    // Fetch products based on category, search query, sorting, and ordering
+    // Fetch products based on Category, search query, sorting, and ordering
     setLoading(true);
     axios
       .get(url)
@@ -39,7 +39,7 @@ function Products() {
         console.error(err);
         setLoading(false);
       });
-  }, [chosenCategory, searchQuery, sortBy, order]); // Fetch whenever these dependencies change
+  }, [chosenCategory, searchQuery, sortBy, order]);
 
   // Fetch product categories
   useEffect(() => {
@@ -57,7 +57,7 @@ function Products() {
 
   // Handle the search button click
   const handleSearch = () => {
-    // Trigger fetching the products with the updated search query and category
+    // Trigger fetching the products with the updated search query and Category
     console.log(
       "Search triggered with:",
       searchQuery,
@@ -68,7 +68,7 @@ function Products() {
       "Order:",
       order
     );
-    setSearchQuery(searchQuery); // Ensure search query is set to trigger the useEffect
+    setSearchQuery(searchQuery); 
   };
 
   return (
@@ -98,9 +98,9 @@ function Products() {
               fullWidth
             >
               <MenuItem value="All">All Categories</MenuItem>
-              {categories.map((categoryItem) => (
-                <MenuItem value={categoryItem.slug} key={categoryItem.slug}>
-                  {categoryItem.name}
+              {categories.map((CategoryItem) => (
+                <MenuItem value={CategoryItem.slug} key={CategoryItem.slug}>
+                  {CategoryItem.name}
                 </MenuItem>
               ))}
             </Select>
@@ -139,15 +139,15 @@ function Products() {
             <Category
               onClick={() => setChosenCategory("All")}
               isChosen={chosenCategory === "All"}
-              category={{ slug: "All", name: "All" }}
+              Category={{ slug: "All", name: "All" }}
               key="All"
             />
-            {categories.map((categoryItem) => (
+            {categories.map((CategoryItem) => (
               <Category
-                onClick={() => setChosenCategory(categoryItem.slug)}
-                isChosen={categoryItem.slug === chosenCategory}
-                category={categoryItem}
-                key={categoryItem.slug}
+                onClick={() => setChosenCategory(CategoryItem.slug)}
+                isChosen={CategoryItem.slug === chosenCategory}
+                Category={CategoryItem}
+                key={CategoryItem.slug}
               />
             ))}
           </div>

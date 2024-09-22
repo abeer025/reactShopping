@@ -1,5 +1,5 @@
-function Category({ category, isChosen, onClick }) {
-  const { name } = category;
+function Category({ Category, isChosen, onClick }) {
+  const { name } = Category;
   return (
     <div
       onClick={onClick}

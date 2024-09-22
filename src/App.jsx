@@ -7,7 +7,7 @@ import Signup from "./pages/Signup";
 import ProductDetail from "./pages/ProductDetail";
 import Header from "./components/Header";
 import UseState from "./useState";
-import NotFound from "./pages/NotFound";  // Uncomment this line to include NotFound
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         <Route path="/Signup" element={<Signup />} />
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/products" element={<Products />} />
-        <Route path="*" element={<NotFound />} /> {/* Handle unmatched routes */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
