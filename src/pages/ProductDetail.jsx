@@ -101,7 +101,7 @@ function ProductDetail() {
           {/* Product Image */}
           <Grid item xs={12} md={6}>
             <img
-              alt={title} // Improved accessibility
+              alt={title}
               className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded cursor-pointer"
               src={thumbnail}
               onClick={handleImageClick}
@@ -114,7 +114,7 @@ function ProductDetail() {
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <img
-            alt={title} // Improved accessibility
+            alt={title} 
             className="w-full object-cover"
             src={thumbnail}
           />

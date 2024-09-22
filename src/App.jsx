@@ -5,6 +5,7 @@ import Products from "./pages/Products";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProductDetail from "./pages/ProductDetail";
+import CartPage from "./pages/CartPge";
 import Header from "./components/Header";
 import UseState from "./useState";
 import NotFound from "./pages/NotFound";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/Signup" element={<Signup />} />
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/cart" element={<CartPage />}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
