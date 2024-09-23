@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import {Button, Badge, IconButton} from "@mui/material"
-import Icon from '@mdi/react';
-import { mdiCart } from '@mdi/js';
+import { Button, Badge, IconButton } from "@mui/material";
+import Icon from "@mdi/react";
+import { mdiCart } from "@mdi/js";
 import { CartContext } from "../context/CartContext";
 
 function Header() {
   const { cartItems } = useContext(CartContext);
   // Calculate total number of items in the cart
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  console.log(totalItems)
+  console.log(totalItems);
   return (
     <header className="text-white text-ellipsis body-font bg-slate-400">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -51,13 +51,12 @@ function Header() {
         >
           Shop Now
         </Button>
-        <Link to={'../pages/CartPge'}>
-        <IconButton color="primary" aria-label="cart"
-        >
-          <Badge badgeContent={totalItems} color="secondary">
-            <Icon path={mdiCart} size={1} color="white" />
-          </Badge>
-        </IconButton>
+        <Link to="/cart">
+          <IconButton color="primary" aria-label="cart">
+            <Badge badgeContent={totalItems} color="secondary">
+              <Icon path={mdiCart} size={1} color="white" />
+            </Badge>
+          </IconButton>
         </Link>
       </div>
     </header>

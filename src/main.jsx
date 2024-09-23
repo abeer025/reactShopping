@@ -11,11 +11,9 @@ import '@fontsource/roboto/700.css';
 
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
   <UserContextProvider>
     <CartContextProvider>
     <AppRouter />
     </CartContextProvider>
   </UserContextProvider>
-  </StrictMode>
 );

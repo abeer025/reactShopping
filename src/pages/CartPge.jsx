@@ -13,9 +13,15 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { CartContext } from "../context/CartContext";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 function CartPage() {
-  const { cartItems, removeItemFromCart, totalPrice, totalQuantity, isItemAdded, lessQuanityFromCart } = useContext(CartContext);
+  const { cartItems, removeItemFromCart, updateToCart } = useContext(CartContext);
+  console.log("cartItems:", cartItems)
+  // Calculate total price and quantity
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <Box sx={{ padding: "2rem", maxWidth: "1200px", margin: "0 auto" }}>
@@ -38,14 +44,16 @@ function CartPage() {
                     <div key={item.id}>
                       <ListItem>
                         <Grid container alignItems="center" spacing={2}>
+                          {/* Product Image */}
                           <Grid item xs={4} sm={3}>
                             <img
                               src={item.thumbnail}
                               alt={item.title}
                               style={{ width: "100%", borderRadius: "8px" }}
-                            />
+                              />
                           </Grid>
 
+                          {/* Product Details */}
                           <Grid item xs={8} sm={6}>
                             <ListItemText
                               primary={item.title}
@@ -53,7 +61,30 @@ function CartPage() {
                             />
                           </Grid>
 
-                          <Grid item xs={2} sm={3} textAlign="right">
+                          {/* Quantity Update Controls */}
+                          <Grid item xs={6} sm={3} textAlign="right">
+                            <IconButton
+                              aria-label="decrease"
+                              onClick={() => updateToCart(item.id, "minus")}
+                              disabled={item.quantity <= 1}
+                              color="primary"
+                            >
+                              <RemoveIcon />
+                            </IconButton>
+                            <Typography variant="body1" component="span">
+                              {item.quantity}
+                            </Typography>
+                            <IconButton
+                              aria-label="increase"
+                              onClick={() => updateToCart(item.id, "plus")}
+                              color="primary"
+                            >
+                              <AddIcon />
+                            </IconButton>
+                          </Grid>
+
+                          {/* Delete Button */}
+                          <Grid item xs={2} sm={1} textAlign="right">
                             <IconButton
                               aria-label="delete"
                               onClick={() => removeItemFromCart(item.id)}

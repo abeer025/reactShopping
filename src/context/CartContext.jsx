@@ -14,12 +14,11 @@ function CartContextProvider({ children }) {
 
   useEffect(() => {
     const itemsFromStorage = localStorage.getItem("cartItems");
-    console.log("itemsFromStorage=>", itemsFromStorage);
     if (itemsFromStorage) {
       setCartItems([...JSON.parse(itemsFromStorage)]);
-      setIsLoaded(true);
     }
   }, []);
+  
 
   function addItemToCart(item) {
     const arr = cartItems;
@@ -36,6 +35,18 @@ function CartContextProvider({ children }) {
     const arr = cartItems;
     const itemIndex = cartItems.findIndex((data) => data.id == id);
     arr[itemIndex].quantity--;
+    setCartItems([...arr]);
+  }
+
+  function updateToCart(id, type) {
+    const arr = [...cartItems];
+    const itemInd = arr.findIndex((data) => data.id == id);
+    if (type == "plus") {
+      arr[itemInd].quantity++;
+    } else {
+      arr[itemInd].quantity--;
+    }
+
     setCartItems([...arr]);
   }
 
@@ -62,6 +73,7 @@ function CartContextProvider({ children }) {
         cartItems,
         addItemToCart,
         lessQuanityFromCart,
+        updateToCart,
         removeItemFromCart,
         isItemAdded,
       }}
