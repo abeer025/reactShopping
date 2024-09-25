@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Checkout from "../components/Checkout";
 import {
   Box,
   Typography,
@@ -19,7 +20,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 function CartPage() {
   const { cartItems, removeItemFromCart, updateToCart } = useContext(CartContext);
   console.log("cartItems:", cartItems)
-  // Calculate total price and quantity
+
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -102,7 +103,7 @@ function CartPage() {
               </Paper>
             </Grid>
 
-            {/* Summary Section */}
+            {/* Order Section */}
             <Grid item xs={12} md={4}>
               <Paper sx={{ padding: "1rem" }}>
                 <Typography variant="h5" gutterBottom>
@@ -124,6 +125,7 @@ function CartPage() {
                 </List>
 
                 <Button
+                  onClick={Checkout}
                   variant="contained"
                   color="primary"
                   fullWidth

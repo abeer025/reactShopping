@@ -7,64 +7,57 @@ function CartContextProvider({ children }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    const itemsFromStorage = localStorage.getItem("cartItems");
+    if (itemsFromStorage) {
+      setCartItems(JSON.parse(itemsFromStorage)); 
+    }
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
     if (isLoaded) {
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }
-  }, [cartItems]);
-
-  useEffect(() => {
-    const itemsFromStorage = localStorage.getItem("cartItems");
-    if (itemsFromStorage) {
-      setCartItems([...JSON.parse(itemsFromStorage)]);
-    }
-  }, []);
-  
+  }, [cartItems, isLoaded]);
 
   function addItemToCart(item) {
-    const arr = cartItems;
-    const itemIndex = cartItems.findIndex((data) => data.id == item.id);
-    if (itemIndex == -1) {
-      arr.push({ ...item, quantity: 1 });
+    const itemIndex = cartItems.findIndex((data) => data.id === item.id);
+    let updatedCartItems = [...cartItems];
+    if (itemIndex === -1) {
+      updatedCartItems.push({ ...item, quantity: 1 });
     } else {
-      arr[itemIndex].quantity++;
+      updatedCartItems[itemIndex].quantity++;
     }
-    setCartItems([...arr]);
+    setCartItems(updatedCartItems);
   }
 
   function lessQuanityFromCart(id) {
-    const arr = cartItems;
-    const itemIndex = cartItems.findIndex((data) => data.id == id);
-    arr[itemIndex].quantity--;
-    setCartItems([...arr]);
+    const itemIndex = cartItems.findIndex((data) => data.id === id);
+    let updatedCartItems = [...cartItems];
+    if (updatedCartItems[itemIndex].quantity > 1) {
+      updatedCartItems[itemIndex].quantity--;
+    }
+    setCartItems(updatedCartItems);
   }
 
   function updateToCart(id, type) {
-    const arr = [...cartItems];
-    const itemInd = arr.findIndex((data) => data.id == id);
-    if (type == "plus") {
-      arr[itemInd].quantity++;
-    } else {
-      arr[itemInd].quantity--;
+    const itemIndex = cartItems.findIndex((data) => data.id === id);
+    let updatedCartItems = [...cartItems];
+    if (type === "plus") {
+      updatedCartItems[itemIndex].quantity++;
+    } else if (type === "minus" && updatedCartItems[itemIndex].quantity > 1) {
+      updatedCartItems[itemIndex].quantity--;
     }
-
-    setCartItems([...arr]);
+    setCartItems(updatedCartItems);
   }
 
   function removeItemFromCart(id) {
-    const arr = cartItems;
-    const itemIndex = cartItems.findIndex((data) => data.id == id);
-    arr.splice(itemIndex, 1);
-    setCartItems([...arr]);
+    const updatedCartItems = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedCartItems);
   }
 
   function isItemAdded(id) {
-    const arr = cartItems;
-    const itemIndex = cartItems.findIndex((data) => data.id == id);
-    if (itemIndex == -1) {
-      return null;
-    } else {
-      return arr[itemIndex];
-    }
+    return cartItems.find((item) => item.id === id) || null;
   }
 
   return (
