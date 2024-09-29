@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Category from "../components/Category";
-import Card from "../components/Card.jsx";
+import Card from "../components/Card";
 import { Select, MenuItem, TextField, Button, CircularProgress } from "@mui/material";
 
 function Products() {

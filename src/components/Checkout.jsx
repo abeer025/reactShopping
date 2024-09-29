@@ -1,35 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Box,
   Typography,
   Button,
   Modal,
 } from "@mui/material";
+import { CartContext } from "../context/CartContext";
 
 function Checkout() {
   const [open, setOpen] = useState(false); 
+  const [product, setProduct] = useState(null);
+  
+  const { addItemToCart, isItemAdded, cartItems } = useContext(CartContext);
 
-  const handleOpen = () => setOpen(true);
-  // console.log("handle -=> ", handleOpen());
-  function handleClose() {
-    return setOpen(false);
-  }
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+  const handleOpen = (selectedProduct) => {
+    setProduct(selectedProduct);
+    setOpen(true);
   };
+
+  const handleClose = () => {
+    setProduct(null);
+    setOpen(false);
+  };
+
+  // const style = {
+  //   position: 'absolute',
+  //   top: '50%',
+  //   left: '50%',
+  //   transform: 'translate(-50%, -50%)',
+  //   width: 400,
+  //   bgcolor: 'background.paper',
+  //   border: '2px solid #000',
+  //   boxShadow: 24,
+  //   p: 4,
+  // };
+
+  
+  const { thumbnail = '', category = '', title = '', price = '', description = '' } = product || {};
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={() => handleOpen(cartItems[0])}>Open modal</Button>
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -38,11 +50,17 @@ function Checkout() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            {title || "No product available"}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            {description || "No description available"}
           </Typography>
+          {thumbnail && <img src={thumbnail} alt={title} style={{ width: "100%", borderRadius: "8px" }} />}
+          <Typography>Price: ${price}</Typography>
+          <Typography>Category: {category}</Typography>
+          <Button onClick={() => addItemToCart(product)} disabled={isItemAdded(product?.id)}>
+            Add to Cart
+          </Button>
         </Box>
       </Modal>
     </div>

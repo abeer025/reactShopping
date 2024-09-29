@@ -1,5 +1,4 @@
 import axios from "axios";
-import CartPage from "../pages/CartPge";
 import { useEffect, useState } from "react";
 import {
   Card,
