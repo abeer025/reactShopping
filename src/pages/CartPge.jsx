@@ -19,7 +19,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 
 function CartPage() {
   const { cartItems, removeItemFromCart, updateToCart } = useContext(CartContext);
-  console.log("cartItems:", cartItems)
+  console.log("cartItems:", cartItems);
 
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -48,10 +48,10 @@ function CartPage() {
                           {/* Product Image */}
                           <Grid item xs={4} sm={3}>
                             <img
-                              src={item.thumbnail}
+                              src={item.image} // Changed from thumbnail to image
                               alt={item.title}
                               style={{ width: "100%", borderRadius: "8px" }}
-                              />
+                            />
                           </Grid>
 
                           {/* Product Details */}

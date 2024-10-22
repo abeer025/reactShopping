@@ -22,12 +22,12 @@ function ProductDetail() {
   const [notFound, setNotFound] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const { thumbnail, category, title, price, description } = product;
+  const { image, category, title, price, description } = product;
 
   useEffect(() => {
     setNotFound(false);
     axios
-      .get(`https://dummyjson.com/products/${id}`)
+      .get(`https://fakestoreapi.com/products/${id}`)
       .then((res) => {
         setProduct(res.data);
         setLoading(false);
@@ -103,7 +103,7 @@ function ProductDetail() {
             <img
               alt={title}
               className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded cursor-pointer"
-              src={thumbnail}
+              src={image} // Changed from thumbnail to image
               onClick={handleImageClick}
             />
           </Grid>
@@ -116,7 +116,7 @@ function ProductDetail() {
           <img
             alt={title} 
             className="w-full object-cover"
-            src={thumbnail}
+            src={image} // Changed from thumbnail to image
           />
         </DialogContent>
       </Dialog>

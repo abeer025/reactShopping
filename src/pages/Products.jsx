@@ -19,20 +19,31 @@ function Products() {
 
     // Check if searchQuery is set, otherwise fetch by Category and sorting
     if (searchQuery) {
-      url = `https://dummyjson.com/products/search?q=${searchQuery}&sortBy=${sortBy}&order=${order}`;
+      url = `https://fakestoreapi.com/products?q=${searchQuery}`; // No sorting directly in the API
     } else {
       url =
         chosenCategory === "All"
-          ? `https://dummyjson.com/products?sortBy=${sortBy}&order=${order}`
-          : `https://dummyjson.com/products/Category/${chosenCategory}?sortBy=${sortBy}&order=${order}`;
+          ? `https://fakestoreapi.com/products`
+          : `https://fakestoreapi.com/products/category/${chosenCategory}`;
     }
 
-    // Fetch products based on Category, search query, sorting, and ordering
+    // Fetch products
     setLoading(true);
     axios
       .get(url)
       .then((res) => {
-        setProducts(res.data.products);
+        // If sort is selected, apply sorting manually
+        const sortedProducts = [...res.data].sort((a, b) => {
+          if (sortBy === "title") {
+            return order === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title);
+          } else if (sortBy === "price") {
+            return order === "asc" ? a.price - b.price : b.price - a.price;
+          } else if (sortBy === "rating") {
+            return order === "asc" ? a.rating.rate - b.rating.rate : b.rating.rate - a.rating.rate;
+          }
+          return 0;
+        });
+        setProducts(sortedProducts);
         setLoading(false);
       })
       .catch((err) => {
@@ -44,7 +55,7 @@ function Products() {
   // Fetch product categories
   useEffect(() => {
     axios
-      .get("https://dummyjson.com/products/categories")
+      .get("https://fakestoreapi.com/products/categories")
       .then((res) => {
         setCategories(res.data);
         setLoading(false);
@@ -57,18 +68,7 @@ function Products() {
 
   // Handle the search button click
   const handleSearch = () => {
-    // Trigger fetching the products with the updated search query and Category
-    console.log(
-      "Search triggered with:",
-      searchQuery,
-      "Category:",
-      chosenCategory,
-      "Sort:",
-      sortBy,
-      "Order:",
-      order
-    );
-    setSearchQuery(searchQuery); 
+    setSearchQuery(searchQuery);
   };
 
   return (
@@ -99,8 +99,8 @@ function Products() {
             >
               <MenuItem value="All">All Categories</MenuItem>
               {categories.map((CategoryItem) => (
-                <MenuItem value={CategoryItem.slug} key={CategoryItem.slug}>
-                  {CategoryItem.name}
+                <MenuItem value={CategoryItem} key={CategoryItem}>
+                  {CategoryItem}
                 </MenuItem>
               ))}
             </Select>
@@ -135,7 +135,7 @@ function Products() {
           </div>
 
           {/* Categories Filter */}
-          <div className="flex gap-3 flex-wrap">
+          <div className="flex gap-3 flex-wrap justify-center">
             <Category
               onClick={() => setChosenCategory("All")}
               isChosen={chosenCategory === "All"}
@@ -144,16 +144,16 @@ function Products() {
             />
             {categories.map((CategoryItem) => (
               <Category
-                onClick={() => setChosenCategory(CategoryItem.slug)}
-                isChosen={CategoryItem.slug === chosenCategory}
-                Category={CategoryItem}
-                key={CategoryItem.slug}
+                onClick={() => setChosenCategory(CategoryItem)}
+                isChosen={CategoryItem === chosenCategory}
+                Category={{ slug: CategoryItem, name: CategoryItem }}
+                key={CategoryItem}
               />
             ))}
           </div>
 
           {/* Product Cards */}
-          <div className="flex flex-wrap -m-4 my-4">
+          <div className="flex flex-wrap -m-3 my-3 gap-5 justify-center">
             {products.length > 0 ? (
               products.map((item) => <Card item={item} key={item.id} />)
             ) : (

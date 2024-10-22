@@ -1,17 +1,20 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { ref, set } from "firebase/database";
-import { auth, db } from "../utils/firebase";
+import {
+  createUserWithEmailAndPassword,
+  // GoogleAuthProvider,
+  // signInWithPopup,
+  ref, set, auth, db
+} from "../utils/firebase";
 import { useNavigate } from "react-router";
 
-function SignupModal({ closeModal }) { // Destructure closeModal from props
+function SignupModal({ closeModal }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
-    
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -21,41 +24,49 @@ function SignupModal({ closeModal }) { // Destructure closeModal from props
           email: user.email,
           uid: user.uid,
         })
-        .then(() => {
-          navigate("/"); // Navigate after successful signup and database save
-          closeModal(); // Close the modal after successful registration
-        })
-        .catch((error) => {
-          alert("Error saving user data: " + error.message);
-        });
+          .then(() => {
+            navigate("/"); // Navigate after successful signup and database save
+            closeModal(); // Close the modal after successful registration
+          })
+          .catch((error) => {
+            alert("Error saving user data: " + error.message);
+          });
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => alert("Error signing up: " + error.message));
   };
 
-  const handleSignInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
+  // const handleSignInWithGoogle = () => {
+  //   const provider = new GoogleAuthProvider();
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       const user = result.user;
 
-        // Store user data in Realtime Database
-        set(ref(db, `users/${user.uid}`), {
-          email: user.email,
-          uid: user.uid,
-        })
-        .then(() => {
-          navigate("/"); // Navigate after successful signup and database save
-          closeModal(); // Close the modal after successful registration
-        })
-        .catch((error) => {
-          alert("Error saving user data: " + error.message);
-        });
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        alert(errorMessage);
-      });
-  };
+  //       // Store user data in Realtime Database
+  //       set(ref(db, `users/${user.uid}`), {
+  //         email: user.email,
+  //         uid: user.uid,
+  //       })
+  //         .then(() => {
+  //           navigate("/"); // Navigate after successful signup and database save
+  //           closeModal(); // Close the modal after successful registration
+  //         })
+  //         .catch((error) => {
+  //           alert("Error saving user data: " + error.message);
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+
+  //       if (errorCode === "auth/popup-closed-by-user") {
+  //         alert("You closed the Google sign-in popup too early.");
+  //       } else if (errorCode === "auth/account-exists-with-different-credential") {
+  //         alert("An account with this email already exists using a different sign-in method.");
+  //       } else {
+  //         alert("Error signing in with Google: " + errorMessage);
+  //       }
+  //     });
+  // };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50">
@@ -114,13 +125,13 @@ function SignupModal({ closeModal }) { // Destructure closeModal from props
             >
               Sign Up
             </button>
-            <button
+            {/* <button
               type="button"
               onClick={handleSignInWithGoogle}
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Sign Up with Google
-            </button>
+            </button> */}
           </div>
         </form>
       </div>

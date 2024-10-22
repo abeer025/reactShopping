@@ -1,70 +1,98 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState } from "react";
 import {
-  Box,
-  Typography,
   Button,
-  Modal,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Typography,
 } from "@mui/material";
-import { CartContext } from "../context/CartContext";
+import { auth } from "../utils/firebase";
 
-function Checkout() {
-  const [open, setOpen] = useState(false); 
-  const [product, setProduct] = useState(null);
-  
-  const { addItemToCart, isItemAdded, cartItems } = useContext(CartContext);
+const CheckOutModal = ({ isModalOpen, handleOk, checkoutOrder, handleCancel }) => {
+  const [continueAsGuest, setContinueAsGuest] = useState(false);
+  const isLogin = auth.currentUser;
 
-  const handleOpen = (selectedProduct) => {
-    setProduct(selectedProduct);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setProduct(null);
-    setOpen(false);
-  };
-
-  // const style = {
-  //   position: 'absolute',
-  //   top: '50%',
-  //   left: '50%',
-  //   transform: 'translate(-50%, -50%)',
-  //   width: 400,
-  //   bgcolor: 'background.paper',
-  //   border: '2px solid #000',
-  //   boxShadow: 24,
-  //   p: 4,
-  // };
-
-  
-  const { thumbnail = '', category = '', title = '', price = '', description = '' } = product || {};
+  useEffect(() => {
+    return () => setContinueAsGuest(false);
+  }, []);
 
   return (
-    <div>
-      <Button onClick={() => handleOpen(cartItems[0])}>Open modal</Button>
+    <Dialog open={isModalOpen} onClose={handleCancel}>
+      <DialogTitle>Checkout Modal</DialogTitle>
+      <DialogContent>
+        {!isLogin && !continueAsGuest && (
+          <div className="flex flex-col items-center">
+            <Typography variant="h6" align="center" sx={{ mb: 2 }}>
+              Login to Save your Order's and See Progress
+            </Typography>
+            <Typography variant="body1" align="center" sx={{ mb: 2 }}>
+              ----- OR -----
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setContinueAsGuest(true)}
+            >
+              Continue as a Guest
+            </Button>
+          </div>
+        )}
 
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {title || "No product available"}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {description || "No description available"}
-          </Typography>
-          {thumbnail && <img src={thumbnail} alt={title} style={{ width: "100%", borderRadius: "8px" }} />}
-          <Typography>Price: ${price}</Typography>
-          <Typography>Category: {category}</Typography>
-          <Button onClick={() => addItemToCart(product)} disabled={isItemAdded(product?.id)}>
-            Add to Cart
+        {(isLogin || continueAsGuest) && (
+          <form onSubmit={checkoutOrder}>
+            <TextField
+              fullWidth
+              label="Username"
+              variant="outlined"
+              margin="normal"
+              name="username"
+              required
+            />
+            <TextField
+              fullWidth
+              label="Email"
+              variant="outlined"
+              margin="normal"
+              type="email"
+              name="email"
+              required
+            />
+            <TextField
+              fullWidth
+              label="Phone Number"
+              variant="outlined"
+              margin="normal"
+              type="number"
+              name="number"
+              required
+            />
+            <TextField
+              fullWidth
+              label="Address"
+              variant="outlined"
+              margin="normal"
+              multiline
+              rows={4}
+              name="address"
+              required
+            />
+          </form>
+        )}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCancel} color="secondary">
+          Cancel
+        </Button>
+        {(continueAsGuest || isLogin) && (
+          <Button onClick={checkoutOrder} color="primary">
+            Submit
           </Button>
-        </Box>
-      </Modal>
-    </div>
+        )}
+      </DialogActions>
+    </Dialog>
   );
-}
+};
 
-export default Checkout;
+export default CheckOutModal;

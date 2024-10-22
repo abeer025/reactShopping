@@ -3,12 +3,12 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   onAuthStateChanged,
-  GoogleAuthProvider,
+  // GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 // import { getFirestore } from "firebase/firestore.js";
 // import { getStorage } from "firebase/storage.js";
 
@@ -25,8 +25,8 @@ const firebaseConfig = {
   storageBucket: "e-commerce-website-428bd.appspot.com",
   messagingSenderId: "147540178257",
   appId: "1:147540178257:web:348b59daa378fc316f8f70",
-  measurementId: "G-6R5KRVEB1Z"
-}
+  measurementId: "G-6R5KRVEB1Z",
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -35,8 +35,14 @@ const auth = getAuth(app);
 const db = getDatabase(app);
 // const storage = getStorage(app);
 
-export{
+export {
   auth,
   app,
-  db
-}
+  db,
+  set,
+  ref,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+};

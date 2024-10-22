@@ -1,33 +1,32 @@
 import { Link } from "react-router-dom";
-import { Box,Button,Typography } from "@mui/material";
+import { Box, Typography, Card as MUICard, CardMedia, CardContent, Grid } from "@mui/material";
 
 function Card({ item }) {
-  const { thumbnail, Category, title, price, id } = item;
+  const { category, title, price, id, description, image } = item;
 
   return (
-    <Link
-      to={`/products/${id}`}
-      className="lg:w-1/4 md:w-1/2 p-4 w-full shadow"
-    >
-      <Box>
-        <div className="block relative h-48 rounded overflow-hidden">
-          <img
-            alt="ecommerce"
-            className="object-cover object-center w-full h-full block"
-            src={thumbnail}
-          />
-        </div>
-        <div className="mt-4">
-          <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-            {Category}
-          </h3>
-          <h2 className="text-gray-900 title-font text-lg font-medium">
+    <MUICard className="lg:w-1/4 md:w-1/2 p-4 w-full shadow">
+      <Link to={`/products/${id}`} style={{ textDecoration: 'none' }}>
+        <CardMedia
+          component="img"
+          height="100"
+          image={item.image}
+          alt={title}
+          className="object-cover object-center"
+        />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" gutterBottom>
+            {category}
+          </Typography>
+          <Typography variant="h6" component="h2">
             {title}
-          </h2>
-          <p className="mt-1">${price}</p>
-        </div>
-      </Box>
-    </Link>
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            ${price}
+          </Typography>
+        </CardContent>
+      </Link>
+    </MUICard>
   );
 }
 

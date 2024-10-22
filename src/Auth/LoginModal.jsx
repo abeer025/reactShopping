@@ -1,13 +1,21 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { ref, set } from "firebase/database";
-import { auth, db } from "../utils/firebase";
+import { auth, db, signInWithEmailAndPassword, ref, set } from "../utils/firebase";
 import { useNavigate } from "react-router";
+import SignupModal from "../Auth/SignupModal";
 
 function LoginModal({ closeModal }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false); // State for Signup modal
+
+  const openSignupModal = () => {
+    setIsSignupModalOpen(true);
+  };
+
+  const closeSignupModal = () => {
+    setIsSignupModalOpen(false);
+  };
 
   function onSubmit(e) {
     e.preventDefault();
@@ -96,8 +104,20 @@ function LoginModal({ closeModal }) {
               Forgot Password?
             </a>
           </div>
+
+          <div className="flex items-center justify-between">
+            <a
+              onClick={openSignupModal}
+              className="align-baseline mx-auto mt-5 font-bold text-sm text-blue-500 hover:text-blue-800 cursor-pointer"
+            >
+              Don't Have an Account? Create..
+            </a>
+          </div>
         </form>
       </div>
+
+      {/* Render Signup Modal if it's open */}
+      {isSignupModalOpen && <SignupModal closeModal={closeSignupModal} />}
     </div>
   );
 }

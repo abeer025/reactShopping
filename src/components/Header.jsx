@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Badge } from "@mui/material";
 import { CartContext } from "../context/CartContext";
@@ -7,6 +7,7 @@ import { FaShoppingCart, FaCaretDown, FaUserCircle } from "react-icons/fa";
 import Logo from "../assets/logo.png";
 import LoginModal from "../Auth/LoginModal";
 import SignupModal from "../Auth/SignupModal";
+import { auth, onAuthStateChanged, signOut } from "../utils/firebase"; // Import Firebase auth
 
 // Dummy menu and dropdown items
 const Menu = [
@@ -24,18 +25,20 @@ const DropDownLinks = [
   { id: 3, name: "Top Rated", link: "/products" },
 ];
 
-const ProfileLinks = [
-  { id: 1, name: "Profile", link: "/profile" },
-  { id: 2, name: "Dashboard", link: "/dashboard" },
-  { id: 3, name: "Login", link: "#" }, 
-  { id: 4, name: "Signup", link: "#" }, 
-];
-
 function Header() {
   const { cartItems } = useContext(CartContext);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false); // State for Signup modal
+  const [user, setUser] = useState(null); // To track if user is logged in
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  useEffect(() => {
+    // Listen for changes in auth state
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser); // Set user state to logged in user or null
+    });
+    return () => unsubscribe();
+  }, []);
 
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
@@ -51,6 +54,16 @@ function Header() {
 
   const closeSignupModal = () => {
     setIsSignupModalOpen(false);
+  };
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        alert("Logged out successfully!");
+      })
+      .catch((error) => {
+        alert("Error logging out: " + error.message);
+      });
   };
 
   return (
@@ -119,6 +132,8 @@ function Header() {
                 </ul>
               </div>
             </div>
+
+            {/* Main Menu */}
             <nav className="flex flex-wrap items-center text-base justify-center">
               {Menu.map((item) => (
                 <Link
@@ -131,7 +146,7 @@ function Header() {
               ))}
             </nav>
 
-            {/* Profile Dropdown for Dashboard, Login, Signup */}
+            {/* Profile Dropdown for Login, Signup, Logout */}
             <div className="group relative cursor-pointer">
               <a href="#" className="flex items-center gap-[2px] py-2">
                 <FaUserCircle className="text-xl" /> Profile
@@ -139,35 +154,38 @@ function Header() {
               </a>
               <div className="absolute z-[9999] hidden group-hover:block w-[150px] rounded-md bg-white p-2 text-black shadow-md">
                 <ul>
-                  {ProfileLinks.map((data) => (
-                    <li key={data.id}>
-                      {/* Open Login Modal on click */}
-                      {data.name === "Login" ? (
+                  {!user ? (
+                    <>
+                      <li>
                         <a
                           href="#"
                           onClick={openLoginModal}
                           className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
                         >
-                          {data.name}
+                          Login
                         </a>
-                      ) : data.name === "Signup" ? (
+                      </li>
+                      <li>
                         <a
                           href="#"
                           onClick={openSignupModal}
                           className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
                         >
-                          {data.name}
+                          Signup
                         </a>
-                      ) : (
-                        <Link
-                          to={data.link}
-                          className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
-                        >
-                          {data.name}
-                        </Link>
-                      )}
+                      </li>
+                    </>
+                  ) : (
+                    <li>
+                      <a
+                        href="#"
+                        onClick={handleLogout}
+                        className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
+                      >
+                        Logout
+                      </a>
                     </li>
-                  ))}
+                  )}
                 </ul>
               </div>
             </div>
