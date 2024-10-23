@@ -5,7 +5,7 @@
 Front-end: Reactjs, Axios, tailwind css, material ui
 For Backend: (https://fakestoreapi.com/products)
 
-[Live Demo](https://quintuslabs.github.io/fashion-cube)
+[Live Demo](https://abeer025.github.io/reactShopping/)
 
 ## Future Features
 
