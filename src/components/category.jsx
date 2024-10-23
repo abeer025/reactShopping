@@ -1,3 +1,5 @@
+import react from 'react';
+
 function Category({ Category, isChosen, onClick }) {
   const { name } = Category;
   return (
