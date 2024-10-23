@@ -99,7 +99,11 @@ function Products() {
             >
               <MenuItem value="All">All Categories</MenuItem>
               {categories.map((CategoryItem) => (
-                <MenuItem value={CategoryItem} key={CategoryItem}>
+                <MenuItem
+                  value={CategoryItem}
+                  key={CategoryItem}
+                  sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+                >
                   {CategoryItem}
                 </MenuItem>
               ))}
@@ -109,19 +113,46 @@ function Products() {
             <Select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
+              fullWidth
             >
-              <MenuItem value="title">Title</MenuItem>
-              <MenuItem value="price">Price</MenuItem>
-              <MenuItem value="rating">Rating</MenuItem>
+              <MenuItem
+                value="title"
+                sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+              >
+                Title
+              </MenuItem>
+              <MenuItem
+                value="price"
+                sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+              >
+                Price
+              </MenuItem>
+              <MenuItem
+                value="rating"
+                sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+              >
+                Rating
+              </MenuItem>
             </Select>
 
             {/* Order Dropdown */}
             <Select
               value={order}
               onChange={(e) => setOrder(e.target.value)}
+              fullWidth
             >
-              <MenuItem value="asc">Ascending</MenuItem>
-              <MenuItem value="desc">Descending</MenuItem>
+              <MenuItem
+                value="asc"
+                sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+              >
+                Ascending
+              </MenuItem>
+              <MenuItem
+                value="desc"
+                sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+              >
+                Descending
+              </MenuItem>
             </Select>
 
             {/* Search Button */}

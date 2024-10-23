@@ -9,30 +9,33 @@ import CartPage from "./pages/CartPge";
 import Header from "./components/Header";
 import UseState from "./useState";
 import NotFound from "./pages/NotFound";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/useState" element={<UseState />} />
+    <div className="bg-[#eabd6a] min-h-screen">
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/useState" element={<UseState />} />
 
-        {/* Auth Group */}
-        <Route path="/auth">
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/signup" element={<Signup />} />
-        </Route>
+          {/* Auth Group */}
+          <Route path="/auth">
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/signup" element={<Signup />} />
+          </Route>
 
-
-        {/* products and cart */}
-        <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/cart" element={<CartPage />}/>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+          {/* Products and Cart */}
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </div>
   );
 }
 

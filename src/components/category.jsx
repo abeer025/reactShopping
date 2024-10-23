@@ -4,10 +4,10 @@ function Category({ Category, isChosen, onClick }) {
     <div
       onClick={onClick}
       className={`${
-        isChosen ? "bg-purple-400 text-white" : "bg-white text-black"
+        isChosen ? "bg-b-400 text-white" : "bg-white text-black"
       } p-2 
         cursor-pointer
-        hover:bg-purple-100
+        hover:bg-blue-500
         border-purple-400 border px-4 rounded-md`}
     >
       <h1>{name}</h1>
