@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Category from "../components/Category";
+import {Category} from "../components/Category";
 import Card from "../components/Card";
 import { Select, MenuItem, TextField, Button, CircularProgress } from "@mui/material";
 
@@ -102,7 +102,7 @@ function Products() {
                 <MenuItem
                   value={CategoryItem}
                   key={CategoryItem}
-                  sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+                  sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} 
                 >
                   {CategoryItem}
                 </MenuItem>
