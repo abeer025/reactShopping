@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {Category} from "../components/Category";
+import Category from "../components/Categories";
 import Card from "../components/Card";
 import { Select, MenuItem, TextField, Button, CircularProgress } from "@mui/material";
 
