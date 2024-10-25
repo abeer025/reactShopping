@@ -1,3 +1,23 @@
+<<<<<<< HEAD
+=======
+# react Shopping-Ecommerce Application
+
+#General Info
+
+Front-end: Reactjs, Axios, tailwind css, material ui
+For Backend: (https://fakestoreapi.com/products)
+
+[Live Demo](https://abeer025.github.io/reactShopping/)
+
+## Future Features
+
+- Home (products and banners)
+- Detail products
+- Product category
+- Cart
+- Checkout
+- Login / Signup Modal
+>>>>>>> 0cd33f4e417d338059f5190745f1061538a70842
 
 # React + Vite
 
