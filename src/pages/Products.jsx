@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Category from "../components/Categories";
-import {Card} from "../components/Card";
 import { Select, MenuItem, TextField, Button, CircularProgress } from "@mui/material";
+import Card from "../components/Card";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -102,7 +102,9 @@ function Products() {
                 <MenuItem
                   value={CategoryItem}
                   key={CategoryItem}
-                  sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} 
+                  sx={{
+                    "&:hover": { backgroundColor: "#1976d2", color: "white" },
+                  }}
                 >
                   {CategoryItem}
                 </MenuItem>
@@ -117,19 +119,25 @@ function Products() {
             >
               <MenuItem
                 value="title"
-                sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+                sx={{
+                  "&:hover": { backgroundColor: "#1976d2", color: "white" },
+                }} // Hover effect
               >
                 Title
               </MenuItem>
               <MenuItem
                 value="price"
-                sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+                sx={{
+                  "&:hover": { backgroundColor: "#1976d2", color: "white" },
+                }} // Hover effect
               >
                 Price
               </MenuItem>
               <MenuItem
                 value="rating"
-                sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+                sx={{
+                  "&:hover": { backgroundColor: "#1976d2", color: "white" },
+                }} // Hover effect
               >
                 Rating
               </MenuItem>
@@ -143,24 +151,24 @@ function Products() {
             >
               <MenuItem
                 value="asc"
-                sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+                sx={{
+                  "&:hover": { backgroundColor: "#1976d2", color: "white" },
+                }} // Hover effect
               >
                 Ascending
               </MenuItem>
               <MenuItem
                 value="desc"
-                sx={{ '&:hover': { backgroundColor: '#1976d2', color: 'white' } }} // Hover effect
+                sx={{
+                  "&:hover": { backgroundColor: "#1976d2", color: "white" },
+                }} // Hover effect
               >
                 Descending
               </MenuItem>
             </Select>
 
             {/* Search Button */}
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSearch}
-            >
+            <Button variant="contained" color="primary" onClick={handleSearch}>
               Search
             </Button>
           </div>
