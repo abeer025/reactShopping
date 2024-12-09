@@ -125,7 +125,6 @@ function Header() {
                       <Link
                         to={data.link}
                         className="inline-block w-full rounded-md p-2 hover:bg-blue-500 hover:text-white"
-              
                       >
                         {data.name}
                       </Link>
@@ -155,14 +154,14 @@ function Header() {
                 <FaCaretDown className="transition-all duration-200 mt-1 group-hover:rotate-180" />
               </a>
               <div className="absolute z-[9999] hidden group-hover:block w-[150px] rounded-md bg-white p-2 text-black shadow-md">
-                <ul className=" hover:bg-blue-500 hover:text-white">
+                <ul className="p-2  ">
                   {!user ? (
                     <>
                       <li>
                         <a
                           href="#"
                           onClick={openLoginModal}
-                          className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
+                          className="inline-block w-full rounded-md p-4 hover:bg-blue-500"
                         >
                           Login
                         </a>
@@ -171,7 +170,7 @@ function Header() {
                         <a
                           href="#"
                           onClick={openSignupModal}
-                          className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
+                          className="inline-block w-full rounded-md p-4  hover:bg-blue-500"
                         >
                           Signup
                         </a>
@@ -182,7 +181,7 @@ function Header() {
                       <a
                         href="#"
                         onClick={handleLogout}
-                        className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
+                        className="inline-block w-full rounded-md p-2  hover:bg-blue-500"
                       >
                         Logout
                       </a>
